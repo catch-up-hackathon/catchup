@@ -1,0 +1,4 @@
+venv/
+
+#API KEY
+.env
