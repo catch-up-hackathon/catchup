@@ -6,7 +6,7 @@ dotenv_file = dotenv.find_dotenv()
 dotenv.load_dotenv(dotenv_file)
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
-file_name = "w74dvSGcZoM"
+file_name = os.environ["VIDEO_ID"]
 
 with open(f"extractscript/script/{file_name}.txt", "r") as file:
     context = file.read().replace("\n", "")
@@ -15,12 +15,14 @@ condition = "diabetes with chicken allergy"
 
 prompt = f"""
 First of all, correct the words in context if the spell is incorrect. For example, there isn't '모기버섯', '목이버섯' is correct.
+If the recipe is suitable for {condition} in its current state, let it be and say "그대로 사용하셔도 좋은 레시피네요! 영상에서 레시피를 추출해드릴게요" and just extract and arrange the recipe accordingly in the response.
 And arrange the list of recipe from following {context}, replace the ingredients and revise the recipe with good taste according to my condition: {condition}.
 In addition, I'd like that the food made by revised recipe tastes good.
 Answer in Korean. Please give bad and new ingredients separately for me in some health condition in the form of lists.
 If the spelling is incorrect in Korean, revise them to correct words. For example, '모기버섯' to '목이버섯'.
-And do not use the word '대체' or '대체재,' just give me detailed ingredients I can search with the ingredient's name. For example, '설탕 대체재' to '스테비아'.
+And do not say the word '대체' or '대체재,' just give me detailed and revised ingredients I can search with the ingredient's name. For example, '설탕 대체재' to '스테비아'.
 Give me the recipe with the weight of the ingredients to weigh easily for home cook.
+The replaced ingredients should be the thing we can get easily at home.
 context: {context}
 Give me output which is as following format with JSON and not with any descriptions.
 And finish the recipe with a word of advice.

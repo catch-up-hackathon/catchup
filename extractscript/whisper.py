@@ -7,7 +7,7 @@ dotenv_file = dotenv.find_dotenv()
 dotenv.load_dotenv(dotenv_file)
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
-video_id = 'w74dvSGcZoM'
+video_id = os.environ["VIDEO_ID"]
 
 audio_file= open(f"./audio/{video_id}.mp4", "rb")
 transcript = openai.Audio.transcribe("whisper-1", audio_file)
